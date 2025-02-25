@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
@@ -27,7 +27,8 @@ export default function LoginScreen() {
 
   const handleContinue = () => {
     if (validatePhoneNumber(phoneNumber)) {
-      alert(`Số điện thoại bạn đã nhập: ${phoneNumber}`);
+      // Điều hướng sang MainScreen và truyền dữ liệu nếu cần
+      navigation.navigate("Main", { phoneNumber });
     }
   };
 
@@ -66,7 +67,7 @@ export default function LoginScreen() {
           { backgroundColor: phoneNumber && !errorMessage ? "#0066cc" : "#d9d9d9" },
         ]}
         onPress={handleContinue}
-        disabled={!phoneNumber || !!errorMessage} // Chuyển errorMessage thành boolean
+        disabled={!phoneNumber || !!errorMessage}
       >
         <Text style={styles.buttonText}>Tiếp tục</Text>
       </TouchableOpacity>
