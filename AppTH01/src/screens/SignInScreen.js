@@ -2,24 +2,27 @@ import React, { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity, Image, StyleSheet } from "react-native";
 import CountryPicker from "react-native-country-picker-modal";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native"; // Import useNavigation
 
-// Sử dụng require để import ảnh
-const onboardingImage = require('../../assets/images/MaskGroup.png');
+const onboardingImage = require("../../assets/images/MaskGroup.png");
 
 const SignInScreen = () => {
-  const [countryCode, setCountryCode] = useState("BD"); // Bangladesh mặc định
+  const navigation = useNavigation(); // Lấy navigation
+  const [countryCode, setCountryCode] = useState("BD");
   const [phoneNumber, setPhoneNumber] = useState("");
+
+  // Hàm xử lý đăng nhập và điều hướng sang màn EnterNumberScreen
+  const handleSocialLogin = () => {
+    navigation.navigate("EnterNumber");
+  };
 
   return (
     <View style={styles.container}>
-      {/* Hình ảnh onboarding */}
       <Image source={onboardingImage} style={styles.headerImage} />
 
-      {/* Tiêu đề */}
       <Text style={styles.title}>Get your groceries</Text>
       <Text style={styles.subtitle}>with nectar</Text>
 
-      {/* Ô nhập số điện thoại */}
       <View style={styles.phoneContainer}>
         <CountryPicker
           withFlag
@@ -40,17 +43,16 @@ const SignInScreen = () => {
         />
       </View>
 
-      {/* Hoặc kết nối qua mạng xã hội */}
       <Text style={styles.orText}>Or connect with social media</Text>
 
-      {/* Nút đăng nhập với Google */}
-      <TouchableOpacity style={[styles.socialButton, { backgroundColor: "#4285F4" }]}>
+      {/* Nút đăng nhập Google */}
+      <TouchableOpacity style={[styles.socialButton, { backgroundColor: "#4285F4" }]} onPress={handleSocialLogin}>
         <AntDesign name="google" size={20} color="white" />
         <Text style={styles.socialButtonText}>Continue with Google</Text>
       </TouchableOpacity>
 
-      {/* Nút đăng nhập với Facebook */}
-      <TouchableOpacity style={[styles.socialButton, { backgroundColor: "#3b5998" }]}>
+      {/* Nút đăng nhập Facebook */}
+      <TouchableOpacity style={[styles.socialButton, { backgroundColor: "#3b5998" }]} onPress={handleSocialLogin}>
         <FontAwesome name="facebook" size={20} color="white" />
         <Text style={styles.socialButtonText}>Continue with Facebook</Text>
       </TouchableOpacity>
@@ -69,8 +71,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 400,
     resizeMode: "cover",
-    margin:-10,
-    padding:0,
     marginBottom: 20,
   },
   title: {
