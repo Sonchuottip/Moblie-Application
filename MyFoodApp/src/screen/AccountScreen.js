@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 import { AuthContext } from "../context/AuthContext";
 
 const AccountScreen = () => {
@@ -7,20 +7,25 @@ const AccountScreen = () => {
 
   return (
     <View style={styles.container}>
-      {/* Phần nền xanh trên cùng */}
-      <View style={styles.headerBackground} />
+      {/* Header chứa avatar */}
+      <View style={styles.header}>
+        <Image
+          source={{ uri: "https://i.pravatar.cc/150?img=3" }} // Thay bằng ảnh thật của user
+          style={styles.avatar}
+        />
+      </View>
 
-      {/* Nội dung chính */}
-      <View style={styles.profileContainer}>
-        <Text style={styles.userName}>{user?.name || "Hung Nguyen"}</Text>
-        <Text style={styles.jobTitle}>Mobile developer</Text>
+      {/* Phần thông tin người dùng */}
+      <View style={styles.infoContainer}>
+        <Text style={styles.name}>{user?.email || "Guest User"}</Text>
+        <Text style={styles.role}>Mobile Developer</Text>
         <Text style={styles.description}>
           I have above 5 years of experience in native mobile apps development, now I am learning React Native
         </Text>
 
         {/* Nút Sign Out */}
-        <TouchableOpacity onPress={logout} style={styles.logoutButton}>
-          <Text style={styles.logoutText}>Sign Out</Text>
+        <TouchableOpacity style={styles.signOutButton} onPress={logout}>
+          <Text style={styles.signOutText}>Sign Out</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -32,43 +37,51 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#F5F5F5",
   },
-  headerBackground: {
-    height: 120, // Tăng chiều cao để không bị dồn
-    backgroundColor: "#00AEEF",
-  },
-  profileContainer: {
-    flex: 1,
+  header: {
+    backgroundColor: "#2196F3",
+    height: 150,
     alignItems: "center",
     justifyContent: "center",
+  },
+  avatar: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    borderWidth: 3,
+    borderColor: "#fff",
+    position: "absolute",
+    bottom: -50,
+  },
+  infoContainer: {
+    flex: 1,
+    alignItems: "center",
+    paddingTop: 60,
     paddingHorizontal: 20,
-    paddingTop: -30, // Đưa nội dung xuống để không bị dính vào header
   },
-  userName: {
-    fontSize: 24,
+  name: {
+    fontSize: 22,
     fontWeight: "bold",
-    marginTop: -50, // Căn chỉnh khoảng cách với header xanh
   },
-  jobTitle: {
+  role: {
     fontSize: 16,
-    color: "#00AEEF",
-    marginTop: 10, // Tạo khoảng cách rõ ràng hơn
+    color: "#2196F3",
+    marginVertical: 5,
   },
   description: {
-    fontSize: 14,
     textAlign: "center",
-    color: "#555",
-    marginVertical: 15, // Khoảng cách giữa mô tả và nút Sign Out
-    paddingHorizontal: 10, // Căn chỉnh text không bị sát mép
+    fontSize: 14,
+    color: "#666",
+    marginVertical: 10,
   },
-  logoutButton: {
-    backgroundColor: "#FFA500",
-    paddingVertical: 12,
-    paddingHorizontal: 25,
-    borderRadius: 8, // Bo góc mượt hơn
-    marginTop: 20, // Tạo khoảng cách rõ ràng giữa mô tả và nút
+  signOutButton: {
+    backgroundColor: "#FF9800",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    marginTop: 20,
   },
-  logoutText: {
-    color: "#fff",
+  signOutText: {
+    color: "#FFF",
     fontSize: 16,
     fontWeight: "bold",
   },
