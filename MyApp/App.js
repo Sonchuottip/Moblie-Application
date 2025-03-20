@@ -1,7 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/Ionicons'; // Import icon
+import Icon from 'react-native-vector-icons/Ionicons';
 
 // Import các màn hình
 import HomeScreen from './screens/HomeScreen';
@@ -9,8 +10,23 @@ import ScanScreen from './screens/ScanScreen';
 import NotificationsScreen from './screens/NotificationsScreen';
 import HistoryScreen from './screens/HistoryScreen';
 import CartScreen from './screens/CartScreen';
+import PaymentScreen from './screens/PaymentScreen'; // Import màn hình thanh toán
+import SuccessScreen from './screens/SuccessScreen';
 
 const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+
+// Tạo Stack Navigator cho giỏ hàng và thanh toán
+function CartStack() {
+  return (
+    <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Screen name="Cart" component={CartScreen} />
+      <Stack.Screen name="Payment" component={PaymentScreen} />
+      <Stack.Screen name="Success" component={SuccessScreen} />
+    </Stack.Navigator>
+  );
+}
 
 export default function App() {
   return (
@@ -29,7 +45,7 @@ export default function App() {
               iconName = 'notifications-outline';
             } else if (route.name === 'History') {
               iconName = 'time-outline';
-            } else if (route.name === 'Cart') {
+            } else if (route.name === 'CartStack') {
               iconName = 'cart-outline';
             }
 
@@ -37,17 +53,17 @@ export default function App() {
           },
           tabBarActiveTintColor: '#3498db',
           tabBarInactiveTintColor: 'gray',
-          tabBarShowLabel: false, // Ẩn tên tab để icon rõ ràng hơn
+          tabBarShowLabel: false,
           tabBarStyle: {
-            height: 50, // Tăng chiều cao để căn giữa icon
+            height: 50,
             backgroundColor: 'white',
             borderTopLeftRadius: 20,
             borderTopRightRadius: 20,
             position: 'absolute',
-            paddingBottom: 5, // Đẩy icon lên trên một chút
+            paddingBottom: 5,
           },
           tabBarItemStyle: {
-            justifyContent: 'center', // Căn giữa icon theo chiều dọc
+            justifyContent: 'center',
             alignItems: 'center',
           },
         })}
@@ -56,7 +72,7 @@ export default function App() {
         <Tab.Screen name="Notifications" component={NotificationsScreen} />
         <Tab.Screen name="Scan" component={ScanScreen} options={{ tabBarStyle: { display: 'none' } }} />
         <Tab.Screen name="History" component={HistoryScreen} />
-        <Tab.Screen name="Cart" component={CartScreen} />
+        <Tab.Screen name="CartStack" component={CartStack} />
       </Tab.Navigator>
     </NavigationContainer>
   );

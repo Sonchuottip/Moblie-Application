@@ -8,3 +8,7 @@
 
 ### Scan Screen
 ![Hình 2](hình2.jpg)
+
+![Hình 3](hình3.jpg)
+
+![Hình 4](hình4.jpg)

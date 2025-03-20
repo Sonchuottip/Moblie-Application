@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { View, Text, Image, TouchableOpacity, FlatList, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 const CartScreen = () => {
+  const navigation = useNavigation(); // Lấy đối tượng navigation
+
   const [cartItems, setCartItems] = useState([
     { id: '1', name: 'Orange Juice', brand: "Lauren's", price: 149, quantity: 2, image: require('../assets/juice.png') },
     { id: '2', name: 'Skimmed Milk', brand: "Baskin's", price: 129, quantity: 2, image: require('../assets/milk.png') },
     { id: '3', name: 'Aloe Vera Lotion', brand: "Marley's", price: 1249, quantity: 2, image: require('../assets/lotion.png') },
   ]);
 
-  // Tăng/Giảm số lượng sản phẩm
   const updateQuantity = (id, type) => {
     setCartItems(prevCart =>
       prevCart.map(item =>
@@ -20,24 +22,21 @@ const CartScreen = () => {
     );
   };
 
-  // Tính tổng tiền
   const totalAmount = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <View style={styles.container}>
-      {/* Header */}
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <Ionicons name="arrow-back-outline" size={24} color="black" />
         </TouchableOpacity>
         <Text style={styles.headerText}>Your Cart 👍</Text>
       </View>
 
-      {/* Danh sách sản phẩm */}
       <FlatList
         data={cartItems}
         keyExtractor={item => item.id}
-        contentContainerStyle={{ paddingBottom: 120 }} // Để tránh bị che bởi footer
+        contentContainerStyle={{ paddingBottom: 120 }}
         renderItem={({ item }) => (
           <View style={styles.cartItem}>
             <Image source={item.image} style={styles.productImage} />
@@ -59,13 +58,15 @@ const CartScreen = () => {
         )}
       />
 
-      {/* Tổng tiền và nút thanh toán luôn nằm ở đáy màn hình */}
       <View style={styles.footer}>
         <View style={styles.totalContainer}>
           <Text style={styles.totalText}>Total</Text>
           <Text style={styles.totalAmount}>₹ {totalAmount}</Text>
         </View>
-        <TouchableOpacity style={styles.checkoutButton}>
+        <TouchableOpacity
+          style={styles.checkoutButton}
+          onPress={() => navigation.navigate('Payment')} // Điều hướng đến PaymentScreen
+        >
           <Text style={styles.checkoutText}>Proceed to checkout</Text>
         </TouchableOpacity>
       </View>
