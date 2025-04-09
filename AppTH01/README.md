@@ -11,3 +11,10 @@
 ![Hinh anh 04](Hinh4.jpg)
 
 ![Hinh anh 05](Hinh5.jpg)
+
+![Hinh anh 06](Hinh6.jpg)
+
+![Hinh anh 07](Hinh7.jpg)
+
+![Hinh anh 08](Hinh8.jpg)
+

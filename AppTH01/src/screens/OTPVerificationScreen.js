@@ -56,9 +56,12 @@ const OTPVerificationScreen = ({ navigation }) => {
         </TouchableOpacity>
 
         {/* Nút tiếp tục */}
-        <TouchableOpacity style={styles.nextButton} onPress={() => console.log("OTP Confirmed")}>
-          <AntDesign name="arrowright" size={30} color="white" />
-        </TouchableOpacity>
+        <TouchableOpacity
+        style={styles.nextButton}
+        onPress={() => navigation.navigate("SelectLocation")}>
+        <AntDesign name="arrowright" size={30} color="white" />
+      </TouchableOpacity>
+
       </KeyboardAvoidingView>
     </ImageBackground>
   );
