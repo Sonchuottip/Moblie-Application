@@ -12,6 +12,13 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  // 👉 Hàm xử lý đăng nhập
+  const handleLogin = () => {
+    // Ở đây bạn có thể kiểm tra thông tin đăng nhập thực tế
+    // Nếu hợp lệ, chuyển đến màn hình Home
+    navigation.navigate('Main');
+  };
+
   return (
     <View style={styles.container}>
       <Image source={require("../../assets/images/Group.png")} style={styles.logo} />
@@ -40,7 +47,8 @@ const LoginScreen = ({ navigation }) => {
         <Text style={styles.forgotText}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.loginButton}>
+      {/* ✅ Nút Log In chuyển sang Home */}
+      <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
         <Text style={styles.buttonText}>Log In</Text>
       </TouchableOpacity>
 
